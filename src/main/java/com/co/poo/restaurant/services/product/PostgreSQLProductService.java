@@ -1,7 +1,6 @@
-package com.co.poo.restaurant.services;
+package com.co.poo.restaurant.services.product;
 
 import com.co.poo.restaurant.model.Product;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -10,7 +9,7 @@ import java.util.List;
 
 @Service
 @Primary
-public class PostgreSQLProductService implements ProductRepository{
+public class PostgreSQLProductService implements ProductRepository {
 
     private final SpringDataProductRepository productRepository;
 

@@ -18,20 +18,21 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_order", nullable = false)
-    private int orderId; //Identificador unico
+    private int orderId;
 
     @Column(name = "table_number", nullable = false)
-    private int tableNumber; //Numero de la mesa
+    private int tableNumber;
 
     @Column(nullable = false)
     private int discount;
 
-    @Column(name = "is_active", nullable = false)
-    private boolean isActive; //Si la orden se encuentra activa
+    @Column(name = "active", nullable = false)
+    private boolean active;
 
-    @Column(name = "is_delivered", nullable = false)
-    private boolean isDelivered;
+    @Column(name = "delivered", nullable = false)
+    private boolean delivered;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id_order", nullable = false)
     private List<OrderItem> items = new ArrayList<>();
 }

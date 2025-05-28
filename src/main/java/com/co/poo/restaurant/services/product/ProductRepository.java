@@ -1,4 +1,4 @@
-package com.co.poo.restaurant.services;
+package com.co.poo.restaurant.services.product;
 
 import com.co.poo.restaurant.model.Product;
 import org.springframework.stereotype.Repository;
