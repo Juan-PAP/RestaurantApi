@@ -50,21 +50,23 @@ public class OrderUseCase {
         return orderRepository.findByDeliveredTrue();
     }
 
-    public Order cancelOrder(int id) {
+    public Order updateOrderStatus(int id, String action) {
         Order order = orderRepository.findOrderById(id);
         if (order == null || !order.isActive() || order.isDelivered()) {
-            throw new IllegalArgumentException("Orden no encontrada o no se puede cancelar.");
+            throw new IllegalArgumentException("Orden no encontrada o no se puede modificar.");
         }
-        order.setActive(false);
-        return orderRepository.updateOrder(order);
-    }
 
-    public Order deliverOrder(int id) {
-        Order order = orderRepository.findOrderById(id);
-        if (order == null || !order.isActive() || order.isDelivered()) {
-            throw new IllegalArgumentException("Orden no encontrada o ya ha sido entregada.");
+        switch (action.toLowerCase()) {
+            case "cancel":
+                order.setActive(false);
+                break;
+            case "deliver":
+                order.setDelivered(true);
+                break;
+            default:
+                throw new IllegalArgumentException("Acción inválida: " + action);
         }
-        order.setDelivered(true);
+
         return orderRepository.updateOrder(order);
     }
 }

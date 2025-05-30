@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/v1/orders")
@@ -37,26 +38,20 @@ public class OrderController {
     }
 
     @GetMapping("/delivered")
-    public ResponseEntity <List<Order>> getOrderDelivered(){
-        List <Order> deliveredOrders = orderUseCase.getDeliveredOrders();
+    public ResponseEntity<List<Order>> getOrderDelivered() {
+        List<Order> deliveredOrders = orderUseCase.getDeliveredOrders();
         return ResponseEntity
                 .ok()
                 .body(deliveredOrders);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Order> cancelOrder(@PathVariable int id) {
-        Order order = orderUseCase.cancelOrder(id);
-        return ResponseEntity
-                .ok()
-                .body(order);
-    }
-
-    @PutMapping("/deliver/{id}")
-    public ResponseEntity<Order> deliverOrder(@PathVariable int id) {
-        Order order = orderUseCase.deliverOrder(id);
-        return ResponseEntity
-                .ok()
-                .body(order);
+    public ResponseEntity<Order> updateStatus(
+            @PathVariable int id,
+            @RequestBody Map<String, String> body
+    ) {
+        String action = body.get("action");
+        Order order = orderUseCase.updateOrderStatus(id, action);
+        return ResponseEntity.ok(order);
     }
 }
