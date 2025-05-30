@@ -8,5 +8,8 @@ import java.util.List;
 public interface SpringDataOrderRepository extends JpaRepository<Order, Integer> {
 
     List<Order> findByActiveTrue();
+
+    Order findByTableNumberAndActiveTrue(int tableNumber);
+
     List<Order> findByDeliveredTrue();
 }

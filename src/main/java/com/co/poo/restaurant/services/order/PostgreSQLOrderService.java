@@ -41,7 +41,17 @@ public class PostgreSQLOrderService implements OrderRepository {
     }
 
     @Override
+    public Order findByTableNumberAndActiveTrue(int tableNumber) {
+        return orderRepository.findByTableNumberAndActiveTrue(tableNumber);
+    }
+
+    @Override
     public Order createOrder(Order order) {
+        return orderRepository.save(order);
+    }
+
+    @Override
+    public Order updateOrder(Order order) {
         return orderRepository.save(order);
     }
 }

@@ -44,5 +44,19 @@ public class OrderController {
                 .body(deliveredOrders);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Order> cancelOrder(@PathVariable int id) {
+        Order order = orderUseCase.cancelOrder(id);
+        return ResponseEntity
+                .ok()
+                .body(order);
+    }
 
+    @PutMapping("/deliver/{id}")
+    public ResponseEntity<Order> deliverOrder(@PathVariable int id) {
+        Order order = orderUseCase.deliverOrder(id);
+        return ResponseEntity
+                .ok()
+                .body(order);
+    }
 }

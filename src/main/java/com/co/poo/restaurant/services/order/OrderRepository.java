@@ -16,5 +16,9 @@ public interface OrderRepository {
 
     Order findOrderById(int id);
 
+    Order findByTableNumberAndActiveTrue(int tableNumber);
+
     Order createOrder(Order order);
+
+    Order updateOrder(Order order);
 }
