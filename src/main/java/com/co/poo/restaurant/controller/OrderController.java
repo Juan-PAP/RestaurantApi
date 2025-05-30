@@ -27,4 +27,22 @@ public class OrderController {
         Order savedOrder = orderUseCase.createOrder(order);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedOrder);
     }
+
+    @GetMapping("/active")
+    public ResponseEntity<List<Order>> getOrderActive() {
+        List<Order> activeOrders = orderUseCase.getActiveOrders();
+        return ResponseEntity
+                .ok()
+                .body(activeOrders);
+    }
+
+    @GetMapping("/delivered")
+    public ResponseEntity <List<Order>> getOrderDelivered(){
+        List <Order> deliveredOrders = orderUseCase.getDeliveredOrders();
+        return ResponseEntity
+                .ok()
+                .body(deliveredOrders);
+    }
+
+
 }

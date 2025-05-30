@@ -25,6 +25,16 @@ public class PostgreSQLOrderService implements OrderRepository {
     }
 
     @Override
+    public List<Order> findByActiveTrue() {
+        return orderRepository.findByActiveTrue();
+    }
+
+    @Override
+    public List<Order> findByDeliveredTrue() {
+        return orderRepository.findByDeliveredTrue();
+    }
+
+    @Override
     public Order findOrderById(int id) {
         return orderRepository.findById(id)
                 .orElse(null);

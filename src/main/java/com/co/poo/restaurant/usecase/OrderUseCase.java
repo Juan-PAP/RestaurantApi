@@ -37,4 +37,12 @@ public class OrderUseCase {
 
         return orderRepository.createOrder(order);
     }
+
+    public List<Order> getActiveOrders() {
+        return orderRepository.findByActiveTrue();
+    }
+
+    public List<Order> getDeliveredOrders() {
+        return orderRepository.findByDeliveredTrue();
+    }
 }
