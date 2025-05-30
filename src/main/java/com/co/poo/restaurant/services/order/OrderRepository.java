@@ -10,6 +10,10 @@ public interface OrderRepository {
 
     List<Order> getOrders();
 
+    List<Order> findByActiveTrue();
+
+    List<Order> findByDeliveredTrue();
+
     Order findOrderById(int id);
 
     Order createOrder(Order order);

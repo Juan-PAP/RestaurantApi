@@ -32,7 +32,7 @@ public class Order {
     @Column(name = "delivered", nullable = false)
     private boolean delivered;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_order", nullable = false)
     private List<OrderItem> items = new ArrayList<>();
 }
