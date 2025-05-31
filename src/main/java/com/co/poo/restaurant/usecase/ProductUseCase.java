@@ -20,4 +20,16 @@ public class ProductUseCase {
     public List<Product> getAllProducts() {
         return productRepository.getProducts();
     }
+
+    public Product createProduct (Product product) {
+        return productRepository.saveProduct(product);
+    }
+
+    public void deleteProductById(int id) {
+        Product product = productRepository.findProductById(id);
+        if (product == null) {
+            throw new IllegalArgumentException("El producto con el id: " + id + " no existe");
+        }
+        productRepository.deleteProductById(id);
+    }
 }

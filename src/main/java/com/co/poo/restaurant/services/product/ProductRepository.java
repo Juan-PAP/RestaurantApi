@@ -12,4 +12,8 @@ public interface ProductRepository {
 
     Product findProductById(int id);
 
+    Product saveProduct (Product product);
+
+    void deleteProductById (int id);
+
 }
