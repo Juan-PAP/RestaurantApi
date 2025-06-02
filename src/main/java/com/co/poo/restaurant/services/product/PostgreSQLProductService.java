@@ -30,7 +30,7 @@ public class PostgreSQLProductService implements ProductRepository {
     }
 
     @Override
-    public Product saveProduct(Product product) {
+    public Product save(Product product) {
         return productRepository.save(product);
     }
 
