@@ -1,6 +1,8 @@
 package com.co.poo.restaurant.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +23,8 @@ public class OrderItem {
     @JoinColumn(name = "id_product", nullable = false)
     private Product product;
 
+    @NotNull(message = "La cantidad no puede ser nula")
+    @Min(value = 1, message = "La cantidad debe ser mayor o igual a 1")
     @Column(nullable = false)
     private int quantity;
 }

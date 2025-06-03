@@ -4,6 +4,7 @@ import com.co.poo.restaurant.model.Product;
 import com.co.poo.restaurant.usecase.ProductUseCase;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,7 +39,7 @@ public class ProductController {
     public ResponseEntity <Product> createProduct (@RequestBody Product product){
         Product savedProduct = productUseCase.createProduct(product);
         return ResponseEntity
-                .ok()
+                .status(HttpStatus.CREATED)
                 .body(savedProduct);
     }
 
