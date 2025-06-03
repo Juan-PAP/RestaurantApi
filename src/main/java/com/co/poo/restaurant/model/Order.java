@@ -1,6 +1,9 @@
 package com.co.poo.restaurant.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,9 +23,15 @@ public class Order {
     @Column(name = "id_order", nullable = false)
     private int orderId;
 
+    @NotNull(message = "El numero de mesa no puede ser nulo")
+    @Min(value =1, message = "El numero de mesa debe ser mayor o igual a 1")
+    @Max(value = 24, message = "El numero de mesa debe ser menor o igual a 24")
     @Column(name = "table_number", nullable = false)
     private int tableNumber;
 
+    @NotNull(message = "El descuento no puede ser nulo")
+    @Min(value = 0, message = "El descuento debe ser mayor o igual a 0")
+    @Max(value = 10, message = "El descuento debe ser menor o igual a 10")
     @Column(nullable = false)
     private int discount;
 
