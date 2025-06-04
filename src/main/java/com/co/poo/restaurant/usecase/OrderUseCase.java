@@ -69,4 +69,30 @@ public class OrderUseCase {
 
         return orderRepository.updateOrder(order);
     }
+
+    public Order closeOrder(int id, Integer discount) {
+        Order order = orderRepository.findOrderById(id);
+        if (order == null) {
+            throw new IllegalArgumentException("Orden no encontrada.");
+        }
+        if (!(order.isActive() && order.isDelivered())) {
+            throw new IllegalArgumentException("La orden debe estar activa y entregada para poder cerrarla.");
+        }
+
+
+        if (discount != null && (discount < 0 || discount > 10)) {
+            throw new IllegalArgumentException("El descuento debe estar entre 0 y 10.");
+        }
+        order.setActive(false);
+
+        var subtotal = order.getItems().stream()
+                .mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity())
+                .sum();
+        var total = subtotal - (subtotal * (discount != null ? discount : 0) / 100);
+
+        order.setTotal(total);
+        orderRepository.updateOrder(order);
+
+        return order;
+    }
 }

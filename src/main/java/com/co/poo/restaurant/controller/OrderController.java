@@ -46,13 +46,22 @@ public class OrderController {
                 .body(deliveredOrders);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Order> updateStatus(
-            @PathVariable int id,
-            @RequestBody Map<String, String> body
-    ) {
-        String action = body.get("action");
-        Order order = orderUseCase.updateOrderStatus(id, action);
+    @PutMapping("/deliver/{id}")
+    public ResponseEntity <Order> deliverOrder (@PathVariable int id) {
+        Order order = orderUseCase.updateOrderStatus(id, "deliver");
         return ResponseEntity.ok(order);
+    }
+
+    @PutMapping ("/cancel/{id}")
+    public ResponseEntity<Order> cancelOrder(@PathVariable int id) {
+        Order order = orderUseCase.updateOrderStatus(id, "cancel");
+        return ResponseEntity.ok(order);
+    }
+
+    @PutMapping ("/close/{id}")
+    public ResponseEntity <Order> closeOrder (@PathVariable int id, @RequestBody Map<String, Integer> discount) {
+        Order order = orderUseCase.closeOrder (id, discount.get("discount"));
+        return ResponseEntity.ok(order);
+
     }
 }

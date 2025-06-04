@@ -35,6 +35,10 @@ public class Order {
     @Column(nullable = false)
     private int discount;
 
+    @NotNull(message = "El total no puede ser nulo")
+    @Column(nullable = false)
+    private Double total;
+
     @Column(name = "active", nullable = false)
     private boolean active;
 
@@ -44,4 +48,6 @@ public class Order {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_order", nullable = false)
     private List<OrderItem> items = new ArrayList<>();
+
+
 }
