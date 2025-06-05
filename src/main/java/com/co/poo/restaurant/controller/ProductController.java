@@ -25,12 +25,21 @@ public class ProductController {
         this.productUseCase = productUseCase;
     }
 
+    /**
+     * Endpoint para obtener todos los productos.
+     */
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
         return ResponseEntity
                 .ok()
                 .body(productUseCase.getAllProducts());
     }
+
+    /**
+     * Endpoint para crear un producto.
+     *
+     * @param product es el producto que se va a ingresar.
+     */
 
     @PostMapping
     public ResponseEntity <Product> createProduct (@RequestBody Product product){
@@ -39,6 +48,13 @@ public class ProductController {
                 .status(HttpStatus.CREATED)
                 .body(savedProduct);
     }
+
+    /**
+     * Endpoint para actualizar los datos de un producto.
+     *
+     * @param id es el id del producto que se va a actualizar.
+     * @param productUpdate es el producto con los datos nuevos.
+     */
 
     @PutMapping("/{id}")
     public ResponseEntity <Product> updateProduct(@PathVariable int id, @Valid @RequestBody Product productUpdate) {

@@ -10,6 +10,13 @@ import org.springframework.web.context.request.WebRequest;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    /**
+     * Handle exceptions in the validation of request parameters.
+     * @param ex The exception that was thrown.
+     * @param request The web request that resulted in the exception.
+     * @return A ResponseEntity containing the error response.
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidation(MethodArgumentNotValidException ex, WebRequest request) {
 
@@ -26,6 +33,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(body);
     }
 
+    /**
+     *  Handle exceptions when an illegal argument is passed to a method.
+     *  @param ex The exception that was thrown.
+     *  @param request The web request that resulted in the exception.
+     *  @return A ResponseEntity containing the error response.
+     */
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponse> handleIllegalArgument(IllegalArgumentException ex, WebRequest request) {
 
@@ -37,6 +50,13 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
     }
+
+    /**
+     * Handle exceptions when an internal server error occurs.
+     * @param ex The exception that was thrown.
+     * @param request The web request that resulted in the exception.
+     * @return A ResponseEntity containing the error response.
+     */
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleAll(
