@@ -41,7 +41,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity <Product> updateProductPrice (@PathVariable int id, @Valid @RequestBody Product productUpdate) {
+    public ResponseEntity <Product> updateProduct(@PathVariable int id, @Valid @RequestBody Product productUpdate) {
         Product product = productUseCase.updateProduct(id, productUpdate);
         return ResponseEntity
                 .ok()
