@@ -56,7 +56,7 @@ public class OrderUseCase {
 
     public Order updateOrderStatus(int id, String action) {
         Order order = orderRepository.findOrderById(id);
-        if (order == null || !order.isActive() || order.isDelivered()) {
+        if (order == null || !order.getActive() || order.getDelivered()) {
             throw new IllegalArgumentException("Orden no encontrada o no se puede modificar.");
         }
 
@@ -79,7 +79,7 @@ public class OrderUseCase {
         if (order == null) {
             throw new IllegalArgumentException("Orden no encontrada.");
         }
-        if (!(order.isActive() && order.isDelivered())) {
+        if (!(order.getActive() && order.getDelivered())) {
             throw new IllegalArgumentException("La orden debe estar activa y entregada para poder cerrarla.");
         }
 
