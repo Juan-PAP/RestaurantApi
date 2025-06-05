@@ -28,6 +28,10 @@ public class OrderUseCase {
             throw new IllegalArgumentException("Ya existe una orden activa para la mesa " + order.getTableNumber());
         }
 
+        if (order.getItems() == null || order.getItems().isEmpty()) {
+            throw new IllegalArgumentException("La orden debe contener al menos un item.");
+        }
+
         for (OrderItem item : order.getItems()) {
             int productId = item.getProduct().getIdProduct();
             Product product = productRepository.findProductById(productId);
@@ -79,17 +83,22 @@ public class OrderUseCase {
             throw new IllegalArgumentException("La orden debe estar activa y entregada para poder cerrarla.");
         }
 
+        if (discount == null) {
+            throw new IllegalArgumentException("El descuento no puede ser nulo.");
+        }
 
-        if (discount != null && (discount < 0 || discount > 10)) {
+        if (discount < 0 || discount > 10) {
             throw new IllegalArgumentException("El descuento debe estar entre 0 y 10.");
         }
-        order.setActive(false);
 
         var subtotal = order.getItems().stream()
                 .mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity())
                 .sum();
-        var total = subtotal - (subtotal * (discount != null ? discount : 0) / 100);
 
+        var total = subtotal - (subtotal * discount / 100);
+
+        order.setActive(false);
+        order.setDiscount(discount);
         order.setTotal(total);
         orderRepository.updateOrder(order);
 

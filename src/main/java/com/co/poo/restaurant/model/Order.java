@@ -45,6 +45,7 @@ public class Order {
     @Column(name = "delivered", nullable = false)
     private boolean delivered;
 
+    @NotNull(message = "La lista de items no puede ser nula")
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_order", nullable = false)
     private List<OrderItem> items = new ArrayList<>();

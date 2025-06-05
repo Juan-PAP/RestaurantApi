@@ -6,12 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductUseCase {
 
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     @Autowired
     public ProductUseCase(ProductRepository productRepository) {
@@ -26,23 +25,21 @@ public class ProductUseCase {
         return productRepository.save(product);
     }
 
-    public void deleteProductById(int id) {
-        Product product = productRepository.findProductById(id);
-        if (product == null) {
-            throw new IllegalArgumentException("El producto con el id: " + id + " no existe");
+    public Product updateProduct(int id, Product productUpdate) {
+        if (productUpdate == null) {
+            throw new IllegalArgumentException("El producto no puede ser nulo");
         }
-        productRepository.deleteProductById(id);
-    }
 
-    public Product updateProductPrice(int id, Double newPrice) {
-        if (newPrice == null || newPrice <= 0) {
-            throw new IllegalArgumentException("El precio del producto no puede ser nulo o negativo");
+        var product = productRepository.findProductById(id);
+
+        if (product == null) {
+            throw new IllegalArgumentException("El producto con el id: " + id + " no existe.");
         }
-        return Optional.ofNullable(productRepository.findProductById(id))
-                .map(existingProduct -> {
-                    existingProduct.setPrice(newPrice);
-                    return productRepository.save(existingProduct);
-                })
-                .orElseThrow(() -> new IllegalArgumentException("El producto con el id: " + id + " no existe."));
+
+        product.setName(productUpdate.getName());
+        product.setCategory(productUpdate.getCategory());
+        product.setPrice(productUpdate.getPrice());
+
+        return productRepository.save(product);
     }
 }
