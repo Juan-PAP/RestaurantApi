@@ -59,7 +59,7 @@ public class OrderController {
     }
 
     @PutMapping ("/close/{id}")
-    public ResponseEntity <Order> closeOrder (@PathVariable int id, @RequestBody Map<String, Integer> discount) {
+    public ResponseEntity <Order> closeOrder (@PathVariable int id,@Valid @RequestBody Map<String, Integer> discount) {
         Order order = orderUseCase.closeOrder (id, discount.get("discount"));
         return ResponseEntity.ok(order);
 

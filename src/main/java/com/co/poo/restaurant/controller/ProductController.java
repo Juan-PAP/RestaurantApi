@@ -2,6 +2,7 @@ package com.co.poo.restaurant.controller;
 
 import com.co.poo.restaurant.model.Product;
 import com.co.poo.restaurant.usecase.ProductUseCase;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -52,7 +53,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity <Product> updateProductPrice (@PathVariable int id, @RequestBody Double newPrice) {
+    public ResponseEntity <Product> updateProductPrice (@PathVariable int id, @Valid @RequestBody Double newPrice) {
         Product product = productUseCase.updateProductPrice(id, newPrice);
         return ResponseEntity
                 .ok()
