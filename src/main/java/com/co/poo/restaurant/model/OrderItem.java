@@ -26,5 +26,5 @@ public class OrderItem {
     @NotNull(message = "La cantidad no puede ser nula")
     @Min(value = 1, message = "La cantidad debe ser mayor o igual a 1")
     @Column(nullable = false)
-    private int quantity;
+    private Integer quantity;
 }
